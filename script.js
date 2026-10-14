@@ -10,52 +10,76 @@
 // --------------------------------------------------
 
 // First, we create a variable for the current scene being displayed
-let currentScene = "backyard";
+let currentScene = "Kitchen";
 
 // Then, we create an object that stores the data for each scene,
 const scenes = {
   // See "backyard" for the first example
-  backyard: {
-    title: "Location: Backyard",
-    character: "Interviewee:Grandma",
-    text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
+  Kitchen: {
+    title: "Location: Kitchen",
+    character: "",
+    text: "You look around and see classic kitchen tools, fryer, oven, countertop, walk-in freezer, door opening out back to courtyard area for delivery trucks to arrive. Around you are also 3 other chefs preparing their parts of the dish.",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
     choices: [
       {
-        text: "Chase after the dog (-10 HP)",
+        text: "Search Kitchen (5 min)",
         action: function () {
-          updateHealth(-10);
+          updateTime(-5);
+          pickUpItem("Knife");
         },
-        nextScene: "entrance"
+        nextScene: "Kitchen"
       },
       {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
+        text: "Move into State Dining Room",
+        nextScene: "State Dining Room"
       },
       {
-          text: "Pick up the brass key",
-          action: function () {
-            pickUpItem("brass key");
-          },
-          nextScene: "hallway"
+          text: "Move Out to Rose Garden",
+          nextScene: "RoseGarden"
       }
     ]
   },
 
-  entrance: {
-    title: "Location: Entrance",
-    character: "Interviewee:Neighbor",
-    text: "well what I remember...",
+  RoseGarden: {
+    title: "Location: Rose Garden",
+    character: "",
+    text: "You move and see an outdoor exploration area: paths, flowers, trees, and views of the White House; There is a secret tunnel pathway on west side of garden allowing for evacuation, only open when mission completed. One guard roams around the garden.",
     choices: [
       {
-        text: "Ask about the dog",
-        nextScene: "backyard"
+        text: "Search Rose Garden(10 min)(10%)",
+        action: function () {
+          updateTime(-10);
+          updateSuspicion(10);
+          text: "You find nothing of interest, but the guard is now suspicious of you.";
+        },
+        nextScene: "RoseGarden"
       },
          {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
+        text: "Move to East Room",
+        nextScene: "EastRoom"
+      },
+      {
+        text: "Kill the guard(need knife)(15%)(5 min)",
+        action: function () {
+          updateTime(-5);
+          updateSuspicion(15);
+        },
+        nextScene: "RoseGarden"
+      },
+       {
+        text: "Move Back to Kitchen",
+        nextScene: "Kitchen"
+      },
+      {
+        text: "Search guard (5 min)",
+        action: function () {
+          updateTime(-5);
+          pickUpItem("Gun");
+        },
+        nextScene: "RoseGarden"
       }
+      //Later add evac through tunnel part
     ]
   },
 
@@ -155,30 +179,33 @@ updateScene(currentScene);
 
 
 // --------------------------------------------------
-// HEALTH
+// TIME
 // Read through the comments below to see what this section does
 //
 // TO CUSTOMIZE THIS SECTION
-// Either customize the name from health to steps, stress, etc...
+// Either customize the name from time to steps, stress, etc...
 // OR
 // create a copy of each step for each additional state you want to track throughout the game
 // --------------------------------------------------
 
-// Create a variable for health
-let health = 100;
-
-// Display current health
-const healthDisplay = document.getElementById("health-display");
-
-// Create a function to update health 
-function updateHealth(amount) {
-  health += amount;
-  healthDisplay.textContent = health;
+// Create a variable for time
+let time = 30;
+let Suspicion =0;
+// Display current time
+const timeDisplay = document.getElementById("time-display");
+const SuspicionDisplay = document.getElementById("Suspicion-display");
+// Create a function to update time
+function updateTime(amount) {
+  time += amount;
+  timeDisplay.textContent = time;
 }
-
-// This refreshes the health display
-updateHealth(0);
-
+function updateSuspicion(amount) {
+  Suspicion += amount;
+  SuspicionDisplay.textContent = Suspicion;
+}
+// This refreshes the time display
+updateTime(0);
+updateSuspicion(0);
 // --------------------------------------------------
 // INVENTORY
 // Read through the comments below to see what this section does
