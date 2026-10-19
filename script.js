@@ -50,6 +50,9 @@ const scenes = {
           else if (inventory.includes("jarrin root poison")) {
             updateScene("Ending1");
           }
+          else {
+            document.getElementById("message-display").textContent = "You need the jarrin root poision to poison the presidents food.";
+          }
         },
     }
     ]
@@ -65,6 +68,7 @@ const scenes = {
         action: function () {
           updateTime(-10);
           updateSuspicion(10);
+          document.getElementById("message-display").textContent = "You find nothing of interest.";
           if (time <= 0 || Suspicion >= 100) {
             updateScene("Ending3");
           
@@ -83,6 +87,9 @@ const scenes = {
           updateTime(-5);
           updateSuspicion(15);
           pickUpItem("Gun");
+        }
+        else {
+          document.getElementById("message-display").textContent = "You need a knife to kill the guard.";
         }
         if (time <= 0 || Suspicion >= 100) {
             updateScene("Ending3");
@@ -148,6 +155,9 @@ const scenes = {
         action: function () {
         if (inventory.includes("Gun")) {  
           updateSuspicion(100); 
+        }
+        else{
+          document.getElementById("message-display").textContent = "You need a gun to assassinate the president.";
         }
         if (Suspicion >= 100) {
           updateScene("Ending2");
