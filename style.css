@@ -3,4 +3,7 @@ body{
         background-size: 100%;
         font-family: courier new;
         color:rgb(19, 155, 2);
+        select {
+        color: rgb(19, 155, 2);
+    }
     }
