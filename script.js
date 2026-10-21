@@ -395,11 +395,4 @@ function pickUpItem(itemName) {
 // --------------------------------------------------
 
 // Create a function that checks if the inventory contains one item and if so shows the win condition scene.
-function unlockDoor() {
-  if (inventory.includes("brass key")) {
-    updateScene("solution");
-  } else {
-    messageDisplay.textContent = "The door is locked.";
-  }
-}
 
