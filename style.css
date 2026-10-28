@@ -12,6 +12,7 @@ body{
         font-family: courier new;
         color:rgb(19, 155, 2);
         border: 2px solid rgb(19, 155, 2);
+        width: 250px;
         margin: 10px;
         padding: 10px;
     }

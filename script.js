@@ -16,7 +16,7 @@ let currentScene = "Kitchen";
 const scenes = {
   // See "backyard" for the first example
   Kitchen: {
-    title: "Location: Kitchen",
+    title: "Kitchen",
     character: "",
     text: "You look around and see classic kitchen tools, fryer, oven, countertop, walk-in freezer, door opening out back to courtyard area for delivery trucks to arrive. Around you are also 3 other chefs preparing their parts of the dish.",
     // you can choose how many choices to include
@@ -59,7 +59,7 @@ const scenes = {
   },
 
   RoseGarden: {
-    title: "Location: Rose Garden",
+    title: "Rose Garden",
     character: "",
     text: "You move and see an outdoor exploration area: paths, flowers, trees, and views of the White House;  One guard roams around the garden.",
     choices: [
