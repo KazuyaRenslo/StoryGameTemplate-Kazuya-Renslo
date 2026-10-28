@@ -12,6 +12,8 @@ body{
         font-family: courier new;
         color:rgb(19, 155, 2);
         border: 2px solid rgb(19, 155, 2);
+        margin: 10px;
+        padding: 10px;
     }
 
 #inventory-display{
@@ -24,6 +26,8 @@ body{
         font-family: courier new;
         color:rgb(19, 155, 2);
         border: 2px solid rgb(19, 155, 2);
+        margin: 10px;
+        padding: 20px;
         background-color: rgb(0, 0, 0);
     }
 
