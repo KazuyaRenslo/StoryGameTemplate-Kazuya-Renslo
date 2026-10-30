@@ -395,3 +395,7 @@ function pickUpItem(itemName) {
 // --------------------------------------------------
 
 // Create a function that checks if the inventory contains one item and if so shows the win condition scene.
+<<<<<<< HEAD
+=======
+
+>>>>>>> c982b7abf410dd4b8fe888af0f0340c0b0ae7505
