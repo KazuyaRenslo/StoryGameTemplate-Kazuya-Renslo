@@ -10,86 +10,270 @@
 // --------------------------------------------------
 
 // First, we create a variable for the current scene being displayed
-let currentScene = "backyard";
+let currentScene = "Kitchen";
 
 // Then, we create an object that stores the data for each scene,
 const scenes = {
   // See "backyard" for the first example
-  backyard: {
-    title: "Location: Backyard",
-    character: "Interviewee:Grandma",
-    text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
+  Kitchen: {
+    title: "Kitchen",
+    character: "",
+    text: "You look around and see classic kitchen tools, fryer, oven, countertop, walk-in freezer, door opening out back to courtyard area for delivery trucks to arrive. Around you are also 3 other chefs preparing their parts of the dish.",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
     choices: [
       {
-        text: "Chase after the dog (-10 HP)",
+        text: "Search Kitchen (5 min)",
         action: function () {
-          updateHealth(-10);
+          updateTime(-5);
+          pickUpItem("Knife");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
         },
-        nextScene: "entrance"
       },
       {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
+        text: "Move into State Dining Room",
+        nextScene: "StateDiningRoom"
       },
       {
-          text: "Pick up the brass key",
-          action: function () {
-            pickUpItem("brass key");
-          },
-          nextScene: "hallway"
-      }
+          text: "Move Out to Rose Garden",
+          nextScene: "RoseGarden"
+      },
+      {
+        text: "Poison presidents food(need jarrin root poision)",
+        action: function () {
+          if (inventory.includes("jarrin root poison") && inventory.includes("+Presidential Documents") && inventory.includes("+incriminating documents") && inventory.includes("+disable electricity") && inventory.includes("+Hurt Negotiations")) {
+            updateScene("Ending4");
+          }
+          else if (inventory.includes("jarrin root poison")) {
+            updateScene("Ending1");
+          }
+          else {
+            document.getElementById("message-display").textContent = "You need the jarrin root poision to poison the presidents food.";
+          }
+        },
+    }
     ]
   },
 
-  entrance: {
-    title: "Location: Entrance",
-    character: "Interviewee:Neighbor",
-    text: "well what I remember...",
+  RoseGarden: {
+    title: "Rose Garden",
+    character: "",
+    text: "You move and see an outdoor exploration area: paths, flowers, trees, and views of the White House;  One guard roams around the garden.",
     choices: [
       {
-        text: "Ask about the dog",
-        nextScene: "backyard"
+        text: "Search Rose Garden(10 min)(10%)",
+        action: function () {
+          updateTime(-10);
+          updateSuspicion(10);
+          document.getElementById("message-display").textContent = "You find nothing of interest.";
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+        nextScene: "RoseGarden"
       },
          {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
-      }
-    ]
-  },
-
-  hallway: {
-    title: "The Hallway",
-    text: "The hallway is dark and silent.",
-    choices: [
-      {
-        text: "backyard",
-        nextScene: "lockedDoor"
-      }
-    ]
-  },
-
-   lockedDoor: {
-    title: "The Locked Door",
-    text: "The door handle doesn't move.",
-    choices: [
-      {
-        text: "Try to open it",
-        action: unlockDoor
+        text: "Move to East Room",
+        nextScene: "EastRoom"
       },
       {
-        text: "Go back",
-        nextScene: "backyard"
+        text: "Kill the guard(need knife)(15%)(5 min)",
+        action: function () {
+        if (inventory.includes("Knife")) {  
+          updateTime(-5);
+          updateSuspicion(15);
+          pickUpItem("Gun");
+        }
+        else {
+          document.getElementById("message-display").textContent = "You need a knife to kill the guard.";
+        }
+        if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+      },
+    },
+       {
+        text: "Move Back to Kitchen",
+        nextScene: "Kitchen"
+      },
+    ]
+  },
+
+  StateDiningRoom: {
+    title: "The State Dining Room",
+    text: "You move in and see a Large dining table and formal decorations, many seats, door connecting to kitchen area, allowing entrance of new courses and meals, grand carpet and flags around the room. No guards in the room.",
+    choices: [
+      {
+        text: "Move to East Room",
+        nextScene: "EastRoom"
+      },
+      {
+        text: "Move to Oval Office",
+        nextScene: "OvalOffice"
+      },
+      {
+        text: "Move back to kitchen",
+        nextScene: "Kitchen"
       }
     ]
   },
 
-   solution: {
-    title: "The solution",
-    text: "You solved the mystery!",
-    
-  }
+   EastRoom: {
+    title: "East Room",
+    text: "Large formal room, set up with a grand circular wooden table, seats on the edges of the table and many delegates bearing the flags of the US and China sitting around the table discussing, benches on the sides of the room with stenographers. Two Guards rotating around.",
+    choices: [
+      {
+        text: "Sabotage peace talks(30%)",
+        action: function () {
+          updateSuspicion(30);
+          pickUpItem("+Hurt Negotiations");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+      },
+      {
+        text: "Move to Electrical room",
+        nextScene: "Electricalroom"
+      },
+      {
+        text: "Move to White House Basement",
+        nextScene: "WhiteHouseBasement"
+      },
+      {
+        text: "Move to Rose Garden",
+        nextScene: "RoseGarden"
+      },
+      {
+        text: "Assassinate the President(only with gun)(100%)",
+        action: function () {
+        if (inventory.includes("Gun")) {  
+          updateSuspicion(100); 
+        }
+        else{
+          document.getElementById("message-display").textContent = "You need a gun to assassinate the president.";
+        }
+        if (Suspicion >= 100) {
+          updateScene("Ending2");
+        }
+      },
+    }
+
+    ]
+  },
+  OvalOffice: {
+    title: "Oval Office",
+    text: "You see the president's office Desk, couches, fireplace, presidential decorations, Private documents, radio call button and pad, black safe with code numbers. No guards present, many security cameras.",
+    choices: [
+      {
+        text: "Search(5 min)(15%)",
+        action: function () {
+          updateTime(-5);
+          updateSuspicion(15);
+          pickUpItem("+Presidential Documents");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+      },
+      {
+        text: "Move to East Room ",
+        nextScene: "EastRoom"
+      },
+      {
+        text: " Move to White House Basement",
+        nextScene: "WhiteHouseBasement"
+      }
+    ]
+  },
+  Electricalroom: {
+    title: "Electrical Room",
+    text: "You see tons of electrical equipment, circuit boards, breakers, monitor room, filled with 4 guards and security camera feeds, server computers, and data banks.",
+    choices: [
+      {
+        text: "Sabotage electrical systems(30%) ",
+        action: function () {
+          updateSuspicion(30);
+          pickUpItem("+disable electricity");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+      },
+      {
+        text: "Move to East Room ",
+        nextScene: "EastRoom"
+      },
+      {
+        text: " Move to White House Basement",
+        nextScene: "WhiteHouseBasement"
+      }
+    ]
+  },
+  WhiteHouseBasement: {
+    title: "White House Basement",
+    text: "You find storage rooms, utility areas, service corridors, and mysterious locked doors; dark, gloomy vibe with low lights and many guards; janitor's closet located down in this area.",
+    choices: [
+      {
+        text: "Take the jarrin root poision from closet(5 min)",
+        action: function () {
+          updateTime(-5);
+          pickUpItem("jarrin root poison");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+      },
+      {
+        text: "Move Electrical room",
+        nextScene: "Electricalroom"
+      },
+      {
+        text: " Move Oval Office",
+        nextScene: "OvalOffice"
+      },
+      {
+        text: "Search(5 min)(20%)",
+        action: function () {
+          updateTime(-5);
+          updateSuspicion(20);
+          pickUpItem("+incriminating documents");
+          if (time <= 0 || Suspicion >= 100) {
+            updateScene("Ending3");
+          
+          }
+        },
+      },
+    ]
+  },
+
+
+
+  Ending1: {
+    title: "Mission successful",
+    text: "You have successfully done your job; you have killed the president; our client is satisfied; the US is in panic; and you have gained your entrance as a member of our society. There will be a new mission soon. Congratulations.",
+  },
+  Ending2: {
+    title: "Acceptable outcome",
+    text: "You have killed the president but, you were caught and now are in a holding cell, captive of the CIA, who will soon question you and discover the society's secrets; you are executed by an assassin before you are questioned.",
+  },
+  Ending3: {
+    title: "Mission Failed",
+    text: "You have failed, disgracefully. You were caught and now are in a holding cell, captive of the CIA, who will soon question you and discover the society's secrets; you are executed by an assassin before you are questioned. ",
+  },
+  Ending4: {
+    title: "Grand success",
+    text: "Congratulations, you have successfully proven your worth to this society as an assassin and as a saboteur. You have killed the president and managed the collapse of key parts of the US infrastructure and funding. The client is pleased, and you have gained massive respect from the higher-ups in the society. Well done, soldier; a new mission is coming soon.",
+  },
 };
 
 // --------------------------------------------------
@@ -155,30 +339,33 @@ updateScene(currentScene);
 
 
 // --------------------------------------------------
-// HEALTH
+// TIME
 // Read through the comments below to see what this section does
 //
 // TO CUSTOMIZE THIS SECTION
-// Either customize the name from health to steps, stress, etc...
+// Either customize the name from time to steps, stress, etc...
 // OR
 // create a copy of each step for each additional state you want to track throughout the game
 // --------------------------------------------------
 
-// Create a variable for health
-let health = 100;
-
-// Display current health
-const healthDisplay = document.getElementById("health-display");
-
-// Create a function to update health 
-function updateHealth(amount) {
-  health += amount;
-  healthDisplay.textContent = health;
+// Create a variable for time
+let time = 30;
+let Suspicion =0;
+// Display current time
+const timeDisplay = document.getElementById("time-display");
+const SuspicionDisplay = document.getElementById("Suspicion-display");
+// Create a function to update time
+function updateTime(amount) {
+  time += amount;
+  timeDisplay.textContent = time;
 }
-
-// This refreshes the health display
-updateHealth(0);
-
+function updateSuspicion(amount) {
+  Suspicion += amount;
+  SuspicionDisplay.textContent = Suspicion;
+}
+// This refreshes the time display
+updateTime(0);
+updateSuspicion(0);
 // --------------------------------------------------
 // INVENTORY
 // Read through the comments below to see what this section does
@@ -208,11 +395,3 @@ function pickUpItem(itemName) {
 // --------------------------------------------------
 
 // Create a function that checks if the inventory contains one item and if so shows the win condition scene.
-function unlockDoor() {
-  if (inventory.includes("brass key")) {
-    updateScene("solution");
-  } else {
-    messageDisplay.textContent = "The door is locked.";
-  }
-}
-
