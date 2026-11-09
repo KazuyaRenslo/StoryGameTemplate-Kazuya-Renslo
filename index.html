@@ -8,6 +8,52 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body >
+    <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="about.html">about me page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="game.html">Game page</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 <div class="Header">
     <h1 >Greytails</h1>
 </div>
@@ -20,7 +66,17 @@
 <p >Prologue:</p>
 <p >Your Mission is simple. You are to kill the president of the United States and help allow the full collapse of the USA. You will arrive at the white house undercover, your identity will be as a Michelin star chef arriving to cook the meals for the delegates from China and America, arriving to have talks with the president. Once inside you will move swiftly and retrieve the Jarin root, left in the janitor's closet by our inside man, you will take any opportunity to hurt the US that you find, and will return to the kitchen. You will then poison the president's food, and evacuate through the rose garden tunnel. You will have 30 minutes from when you enter the kitchen to when you must evacuate and <strong>you must not be caught.</strong>
 </p>
+<div class="container text-center border border-sucess bg-dark">
+  <div class="row">
+    <div class="col">
+      Task: Retrieve the Jarin root from the janitor's closet and poison the president's food.
+    </div>
+    <div class="col">
+      Advanced task: Sabotage the US economy and operations
+    </div>
+  </div>
 </div>
+
 <form method="get" action="game.html">
     <label for="difficulty" >Difficulty:</label>
     <select id="difficulty" name="difficulty">
@@ -46,6 +102,9 @@
     <input type="submit" value="Start Mission">
 </form>
 
-<a href="about.html">About Page</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
 </body>
 </html>
